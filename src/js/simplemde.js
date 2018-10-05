@@ -13,8 +13,8 @@ require("codemirror/mode/xml/xml.js");
 var CodeMirrorSpellChecker = require("codemirror-spell-checker");
 var marked = require("marked");
 
-//var markdownIt = require("markdown-it");
-//var markdownItAttrs = require("markdown-it-attrs");
+var markdownIt = require("markdown-it");
+var markdownItAttrs = require("markdown-it-attrs");
 
 // Some variables
 var isMac = /Mac/.test(navigator.platform);
@@ -752,7 +752,14 @@ function toggleSideBySide(editor) {
  * Preview action.
  */
 function togglePreview(editor) {
-	console.log();
+
+    // init Markdown It
+    var mdIt = new markdownIt();
+    // init Plugin for Attributes
+    mdIt.use(markdownItAttrs());
+
+
+
 	var cm = editor.codemirror;
 	var wrapper = cm.getWrapperElement();
 	var toolbar_div = wrapper.previousSibling;
