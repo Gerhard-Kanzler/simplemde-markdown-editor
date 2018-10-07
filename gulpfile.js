@@ -1,6 +1,7 @@
 "use strict";
 
 var gulp = require("gulp"),
+    babel = require("gulp-babel"),
 	minifycss = require("gulp-clean-css"),
 	uglify = require("gulp-uglify"),
 	concat = require("gulp-concat"),
@@ -68,6 +69,9 @@ gulp.task("scripts", ["browserify:debug", "browserify", "lint"], function() {
 	
 	return gulp.src(js_files)
 		.pipe(concat("simplemde.min.js"))
+        .pipe( babel({
+            presets: ['es2015']
+        }) )
 		.pipe(uglify())
 		.pipe(buffer())
 		.pipe(header(banner, {pkg: pkg}))

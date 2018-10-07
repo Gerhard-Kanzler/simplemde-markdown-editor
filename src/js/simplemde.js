@@ -753,14 +753,15 @@ function toggleSideBySide(editor) {
  */
 function togglePreview(editor) {
 
-    // init Markdown It
-    var mdIt = new markdownIt();
-    // init Plugin for Attributes
-    mdIt.use(markdownItAttrs());
+	// init Markdown It
+	var mdIt = new markdownIt();
+	// init Plugin for Attributes
+	mdIt.use( markdownItAttrs );
+
+    var cm = editor.codemirror;
+	mdIt.set( cm.value() );
 
 
-
-	var cm = editor.codemirror;
 	var wrapper = cm.getWrapperElement();
 	var toolbar_div = wrapper.previousSibling;
 	var toolbar = editor.options.toolbar ? editor.toolbarElements.preview : false;
