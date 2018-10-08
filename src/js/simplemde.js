@@ -635,18 +635,24 @@ function drawLink(editor) {
  * Action for Link Modal
  */
 function linkModal( editor ) {
+
+
 	var modalId = "simple-mde-modal-link";
 	var modalHTML = '<div id="' + modalId + '" class="simple-mde-modal">' +
 		'<div class="simple-mde-modal-content">' +
 		'<a class="simple-mde-modal-close">&times;</a>' +
 		'   <div>' +
-        '       Name: <br>' +
+        '       Display Text: <br>' +
 		'       <input type="text" id="simple-mde-modal-link-name-input" >' +
 		'   </div>' +
         '   <div>' +
-        '       Link: <br>' +
-        '       <input type="link" id="simple-mde-modal-link-href-input">' +
+        '       Url: <br>' +
+        '       <input type="text" id="simple-mde-modal-link-href-input">' +
         '   </div>' +
+        '   <div>' +
+        '       <input type="checkbox" id="simple-mde-modal-link-target-input"> <label for="simple-mde-modal-link-target-input">Open Blank</label>' +
+        '   </div>' +
+        '   <button type="button" id="simple-mde-modal-link-submit">Submit</button>' +
 		'</div>';
 
 	editor.element.insertAdjacentHTML('afterend', modalHTML);
@@ -664,7 +670,28 @@ function linkModal( editor ) {
 		modal.style.display = "none";
 	};
 
+    var submitButton = document.getElementById('simple-mde-modal-link-submit');
+    submitButton.onclick = function(){
+        var linkName = document.getElementById('simple-mde-modal-link-name-input');
+        var linkHref = document.getElementById('simple-mde-modal-link-href-input');
+        var linkTarget = document.getElementById('simple-mde-modal-link-target-input');
+        var properties = [];
+
+        if( linkTarget.checked ){
+            properties.push('target="_blank"');
+        }
+        var codeString = '';
+        if( properties.length ){
+            codeString = '{' + properties.join(' ', properties) + '}';
+        }
+        editor.codemirror.replaceSelection('[' + linkName.value + '](' + linkHref.value + ')' + codeString);
+
+        modal.style.display = 'none';
+    };
+
 }
+
+
 
 /**
  * Action for drawing an img.
@@ -881,8 +908,9 @@ function _replaceSelection(cm, active, startEnd, url) {
 
 
 function _toggleHeading(cm, direction, size) {
-	if(/editor-preview-active/.test(cm.getWrapperElement().lastChild.className))
-		return;
+	if(/editor-preview-active/.test(cm.getWrapperElement().lastChild.className)) {
+        return;
+    }
 
 	var startPoint = cm.getCursor("start");
 	var endPoint = cm.getCursor("end");
@@ -988,8 +1016,9 @@ function _toggleLine(cm, name) {
 }
 
 function _toggleBlock(editor, type, start_chars, end_chars) {
-	if(/editor-preview-active/.test(editor.codemirror.getWrapperElement().lastChild.className))
-		return;
+	if(/editor-preview-active/.test(editor.codemirror.getWrapperElement().lastChild.className)) {
+        return;
+    }
 
 	end_chars = (typeof end_chars === "undefined") ? start_chars : end_chars;
 	var cm = editor.codemirror;
