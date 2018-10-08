@@ -25965,10 +25965,12 @@ function togglePreview(editor) {
 	// init Markdown It
 	var mdIt = new markdownIt();
 	// init Plugin for Attributes
-	mdIt.use(markdownItAttrs());
-
+	mdIt.use(markdownItAttrs);
 
 	var cm = editor.codemirror;
+	var result = mdIt.render(cm.value());
+
+
 	var wrapper = cm.getWrapperElement();
 	var toolbar_div = wrapper.previousSibling;
 	var toolbar = editor.options.toolbar ? editor.toolbarElements.preview : false;
@@ -25998,7 +26000,9 @@ function togglePreview(editor) {
 			toolbar_div.className += " disabled-for-preview";
 		}
 	}
-	preview.innerHTML = editor.options.previewRender(editor.value(), preview);
+	preview.innerHTML = result;
+	// Cm version
+	//preview.innerHTML = editor.options.previewRender(editor.value(), preview);
 
 	// Turn off side by side if needed
 	var sidebyside = cm.getWrapperElement().nextSibling;
