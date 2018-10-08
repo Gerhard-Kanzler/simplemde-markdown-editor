@@ -635,23 +635,14 @@ function drawLink( editor ){
  * Action for Link Modal
  */
 function linkModal(){
-    var modalContainer = document.createElement("div");
-    modalContainer.id = "simple-mde-modal-link";
-    modalContainer.className = "simple-mde-modal";
-
-    var modalContent = document.createElement("div");
-    modalContent.className = "simple-mde-modal-content";
-    modalContainer.appendChild(modalContent);
-
-    var closeButton = document.createElement("a");
-    closeButton.className = "simple-mde-modal-close";
-    closeButton.innerText = "&times;";
-    modalContent.appendChild(closeButton);
-
-    document.getElementsByTagName("body")[0].appendChild(modalContainer);
-
-    // Link Modal ID
     var modalId = "simple-mde-modal-link";
+    var modalHTML = '<div id="' + modalId + '" class="simple-mde-modal">' +
+        '<div class="simple-mde-modal-content">' +
+            '<a class="simple-mde-modal-close">&times;</a>' +
+        '</div>' +
+    '</div>';
+
+    document.getElementsByTagName("body")[0].appendChild( modalHTML );
 
     // Get the modal
     var modal = document.getElementById( modalId );
