@@ -638,6 +638,10 @@ function linkModal( editor ) {
 
 
 	var modalId = "simple-mde-modal-link";
+
+	if( document.getElementById( modalId ) ){
+        document.getElementById(modalId).remove();
+    }
 	var modalHTML = '<div id="' + modalId + '" class="simple-mde-modal">' +
 		'<div class="simple-mde-modal-content">' +
 		'<a class="simple-mde-modal-close">&times;</a>' +
@@ -652,7 +656,10 @@ function linkModal( editor ) {
         '   <div>' +
         '       <input type="checkbox" id="simple-mde-modal-link-target-input"> <label for="simple-mde-modal-link-target-input">Open Blank</label>' +
         '   </div>' +
-        '   <button type="button" id="simple-mde-modal-link-submit">Submit</button>' +
+        '   <div>' +
+        '       <button type="button" id="simple-mde-modal-link-submit">Submit</button>' +
+        '       <button type="button" id="simple-mde-modal-link-cancel">Cancel</button>' +
+        '   </div>' +
 		'</div>';
 
 	editor.element.insertAdjacentHTML('afterend', modalHTML);
@@ -670,6 +677,7 @@ function linkModal( editor ) {
 		modal.style.display = "none";
 	};
 
+	// Submit Button
     var submitButton = document.getElementById('simple-mde-modal-link-submit');
     submitButton.onclick = function(){
         var linkName = document.getElementById('simple-mde-modal-link-name-input');
@@ -684,11 +692,17 @@ function linkModal( editor ) {
         if( properties.length ){
             codeString = '{' + properties.join(' ', properties) + '}';
         }
-        editor.codemirror.replaceSelection('[' + linkName.value + '](' + linkHref.value + ')' + codeString);
+        editor.codemirror.replaceSelection('[' + linkName.value + '](' + encodeURI( linkHref.value ) + ')' + codeString );
 
         modal.style.display = 'none';
     };
 
+
+    // Cancel Button
+    var cancelButton = document.getElementById('simple-mde-modal-link-cancel');
+    cancelButton.onclick = function(){
+        modal.style.display = 'none';
+    };
 }
 
 
