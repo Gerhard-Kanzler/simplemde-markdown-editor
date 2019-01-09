@@ -634,32 +634,32 @@ function drawLink(editor) {
 /**
  * Action for Link Modal
  */
-function linkModal( editor ) {
+function linkModal(editor) {
 
 
 	var modalId = "simple-mde-modal-link";
 
-	if( document.getElementById( modalId ) ){
-        document.getElementById( modalId ).remove();
-    }
+	if(document.getElementById(modalId)) {
+		document.getElementById(modalId).remove();
+	}
 	var modalHTML = '<div id="' + modalId + '" class="simple-mde-modal">' +
 		'<div class="simple-mde-modal-content">' +
 		'<a class="simple-mde-modal-close">&times;</a>' +
 		'   <div>' +
-        '       Display Text: <br>' +
+		'       Display Text: <br>' +
 		'       <input type="text" id="simple-mde-modal-link-name-input" >' +
 		'   </div>' +
-        '   <div>' +
-        '       Url: <br>' +
-        '       <input type="text" id="simple-mde-modal-link-href-input">' +
-        '   </div>' +
-        '   <div>' +
-        '       <input type="checkbox" id="simple-mde-modal-link-target-input"> <label for="simple-mde-modal-link-target-input">Open Blank</label>' +
-        '   </div>' +
-        '   <div>' +
-        '       <button type="button" id="simple-mde-modal-link-submit">Submit</button>' +
-        '       <button type="button" id="simple-mde-modal-link-cancel">Cancel</button>' +
-        '   </div>' +
+		'   <div>' +
+		'       Url: <br>' +
+		'       <input type="text" id="simple-mde-modal-link-href-input">' +
+		'   </div>' +
+		'   <div>' +
+		'       <input type="checkbox" id="simple-mde-modal-link-target-input"> <label for="simple-mde-modal-link-target-input">Open Blank</label>' +
+		'   </div>' +
+		'   <div>' +
+		'       <button type="button" id="simple-mde-modal-link-submit">Submit</button>' +
+		'       <button type="button" id="simple-mde-modal-link-cancel">Cancel</button>' +
+		'   </div>' +
 		'</div>';
 
 	editor.element.insertAdjacentHTML('afterend', modalHTML);
@@ -678,33 +678,32 @@ function linkModal( editor ) {
 	};
 
 	// Submit Button
-    var submitButton = document.getElementById('simple-mde-modal-link-submit');
-    submitButton.onclick = function(){
-        var linkName = document.getElementById('simple-mde-modal-link-name-input');
-        var linkHref = document.getElementById('simple-mde-modal-link-href-input');
-        var linkTarget = document.getElementById('simple-mde-modal-link-target-input');
-        var properties = [];
+	var submitButton = document.getElementById('simple-mde-modal-link-submit');
+	submitButton.onclick = function() {
+		var linkName = document.getElementById('simple-mde-modal-link-name-input');
+		var linkHref = document.getElementById('simple-mde-modal-link-href-input');
+		var linkTarget = document.getElementById('simple-mde-modal-link-target-input');
+		var properties = [];
 
-        if( linkTarget.checked ){
-            properties.push('target="_blank"');
-        }
-        var codeString = '';
-        if( properties.length ){
-            codeString = '{' + properties.join(' ', properties) + '}';
-        }
-        editor.codemirror.replaceSelection('[' + linkName.value + '](' + encodeURI( linkHref.value ) + ')' + codeString );
+		if(linkTarget.checked) {
+			properties.push('target="_blank"');
+		}
+		var codeString = '';
+		if(properties.length) {
+			codeString = '{' + properties.join(' ', properties) + '}';
+		}
+		editor.codemirror.replaceSelection('[' + linkName.value + '](' + encodeURI(linkHref.value) + ')' + codeString);
 
-        modal.style.display = 'none';
-    };
+		modal.style.display = 'none';
+	};
 
 
-    // Cancel Button
-    var cancelButton = document.getElementById('simple-mde-modal-link-cancel');
-    cancelButton.onclick = function(){
-        modal.style.display = 'none';
-    };
+	// Cancel Button
+	var cancelButton = document.getElementById('simple-mde-modal-link-cancel');
+	cancelButton.onclick = function() {
+		modal.style.display = 'none';
+	};
 }
-
 
 
 /**
@@ -923,8 +922,8 @@ function _replaceSelection(cm, active, startEnd, url) {
 
 function _toggleHeading(cm, direction, size) {
 	if(/editor-preview-active/.test(cm.getWrapperElement().lastChild.className)) {
-        return;
-    }
+		return;
+	}
 
 	var startPoint = cm.getCursor("start");
 	var endPoint = cm.getCursor("end");
@@ -1031,8 +1030,8 @@ function _toggleLine(cm, name) {
 
 function _toggleBlock(editor, type, start_chars, end_chars) {
 	if(/editor-preview-active/.test(editor.codemirror.getWrapperElement().lastChild.className)) {
-        return;
-    }
+		return;
+	}
 
 	end_chars = (typeof end_chars === "undefined") ? start_chars : end_chars;
 	var cm = editor.codemirror;
