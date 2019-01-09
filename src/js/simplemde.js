@@ -640,7 +640,7 @@ function linkModal( editor ) {
 	var modalId = "simple-mde-modal-link";
 
 	if( document.getElementById( modalId ) ){
-        document.getElementById(modalId).remove();
+        document.getElementById( modalId ).remove();
     }
 	var modalHTML = '<div id="' + modalId + '" class="simple-mde-modal">' +
 		'<div class="simple-mde-modal-content">' +

@@ -351,6 +351,7 @@
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
+	max-width: 500px;
     width: 80%;
     min-height: 200px;
 }
